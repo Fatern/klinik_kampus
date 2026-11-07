@@ -46,3 +46,21 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+
+# ──── Tambahan kelompok (jangan hapus bagian di atas) ────
+
+# File konfigurasi rahasia
+.env
+.env.*
+
+# File signing Android
+*.jks
+*.keystore
+android/key.properties
+
+# Hasil coverage
+coverage/
+
+# Konfigurasi Firebase (diputuskan di M05)
+# android/app/google-services.json
+# ios/Runner/GoogleService-Info.plist
