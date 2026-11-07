@@ -17,7 +17,7 @@ flutter run
 ## Status Milestone
 | Milestone | Status | Tag git |
 |-----------|--------|---------|
-| M01 Inisiasi | Dalam proses | m01-initiation |
+| M01 Inisiasi | Selesai | m01-initiation |
 | M02 Spesifikasi | Belum mulai | - |
 | M03 Prototipe | Belum mulai | - |
 | M04 Frontend | Belum mulai | - |
