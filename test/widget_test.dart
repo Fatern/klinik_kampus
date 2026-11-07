@@ -1,30 +1,47 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:klinik_kampus/main.dart';
+import 'package:klinik_kampus/models/booking.dart';
+import 'package:klinik_kampus/repositories/booking_repository.dart';
+import 'package:klinik_kampus/repositories/in_memory_booking_repository.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Aplikasi menampilkan placeholder M01', (tester) async {
+    await tester.pumpWidget(const KlinikApp());
+    expect(find.text('Fondasi M01 siap'), findsOneWidget);
+  });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  test('Satu slot hanya bisa diklaim satu pasien (FR-01)', () async {
+    final repo = InMemoryBookingRepository();
+    Booking make(String id, String patient) => Booking(
+          id: id,
+          patientId: patient,
+          doctorId: 'dokter-1',
+          slotId: 'slot-1',
+          createdAt: DateTime(2026, 11, 7),
+        );
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    await repo.create(make('b1', 'pasien-1'));
+    expect(
+      () => repo.create(make('b2', 'pasien-2')),
+      throwsA(isA<SlotAlreadyClaimedException>()),
+    );
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    await repo.updateStatus('b1', BookingStatus.batal);
+    await repo.create(make('b3', 'pasien-2')); // slot bebas setelah batal
+    expect((await repo.getByPatient('pasien-2')).length, 1);
+  });
+
+  test('clearForPatient menghapus data pasien (PRV-03)', () async {
+    final repo = InMemoryBookingRepository();
+    await repo.create(Booking(
+      id: 'b1',
+      patientId: 'pasien-1',
+      doctorId: 'dokter-1',
+      slotId: 'slot-1',
+      createdAt: DateTime(2026, 11, 7),
+    ));
+    await repo.clearForPatient('pasien-1');
+    expect(await repo.getByPatient('pasien-1'), isEmpty);
   });
 }
