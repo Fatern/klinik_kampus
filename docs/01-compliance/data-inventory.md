@@ -6,11 +6,11 @@ Catatan: M01–M04 memakai data dummy di memori perangkat. Mulai M05 data disimp
 | Data | Kategori UU PDP | Tujuan | Lokasi simpan | Retensi | Perlindungan |
 |------|-----------------|--------|---------------|---------|--------------|
 | Email, UID, role | Umum | Login dan penentuan hak akses | Firebase Auth + Firestore `users` | Selama akun aktif | Firebase Auth; rules per role |
-| Nama, NIM/NIP, fakultas/unit | Umum | Identifikasi pasien | Firestore `patient_profiles` | Selama akun aktif (TENTUKAN dgn klinik) | Rules: milik sendiri + dokter/admin berwenang |
-| Riwayat alergi, golongan darah | Spesifik (kesehatan) | Keselamatan pemeriksaan | Firestore `patient_profiles` | Selama akun aktif (TENTUKAN) | Rules; akses dicatat |
-| Booking (dokter, slot, status) | Spesifik (kesehatan, karena menunjukkan kunjungan ke klinik) | Antrean dan jadwal | Firestore `bookings`, `doctor_schedules` | TENTUKAN | Rules; transaksi atomik |
+| Nama, NIM/NIP, fakultas/unit | Umum | Identifikasi pasien | Firestore `patient_profiles` | Selama akun aktif; prototipe dihapus akhir semester, produksi mengikuti kebijakan klinik (belum ditetapkan) | Rules: milik sendiri + dokter/admin berwenang |
+| Riwayat alergi, golongan darah | Spesifik (kesehatan) | Keselamatan pemeriksaan | Firestore `patient_profiles` | Selama akun aktif; prototipe dihapus akhir semester, produksi mengikuti kebijakan klinik (belum ditetapkan) | Rules; akses dicatat |
+| Booking (dokter, slot, status) | Spesifik (kesehatan, karena menunjukkan kunjungan ke klinik) | Antrean dan jadwal | Firestore `bookings`, `doctor_schedules` | Prototipe: data dummy dihapus akhir semester; produksi mengikuti kebijakan klinik (belum ditetapkan) | Rules; transaksi atomik |
 | Keluhan, diagnosis, tindakan | Spesifik (kesehatan) | Rekam medis | Firestore `medical_records` | Mengikuti ketentuan rekam medis (verifikasi Permenkes 24/2022 dengan klinik) | Rules; Admin hanya ringkasan |
-| Resep (obat, dosis, anjuran) | Spesifik (kesehatan) | Pengingat obat | Firestore `prescriptions` + jadwal notifikasi lokal | TENTUKAN | Rules; teks notifikasi generik |
+| Resep (obat, dosis, anjuran) | Spesifik (kesehatan) | Pengingat obat | Firestore `prescriptions` + jadwal notifikasi lokal | Prototipe: data dummy dihapus akhir semester (jadwal notifikasi lokal ikut dihapus); produksi mengikuti kebijakan klinik (belum ditetapkan) | Rules; teks notifikasi generik |
 | Surat rujukan, surat sakit | Spesifik (kesehatan) | Dokumen digital | Firestore `referrals`, `medical_certificates` | Mengikuti rekam medis | Rules |
 | Flag PIN aplikasi + hash PIN | Umum | Kunci aplikasi lokal | Secure storage perangkat | Sampai PIN dihapus/data dihapus | PBKDF2 + salt acak |
 
