@@ -19,4 +19,6 @@ Kamu melihat data milikmu. Dokter melihat data pasien yang ditanganinya. Admin k
 Jika kami menambah fitur yang mengirim data ke server, kamu akan diminta izin terlebih dulu dan kebijakan ini akan diperbarui.
 
 ## 6. Kontak
-[ISI: email kelompok M2S / kanal klinik]
+Pertanyaan terkait privasi atau permintaan terkait data dapat dikirim ke tim pengembang M2S Klinik Kampus melalui:
+- Email: klinikkampusM2S@gmail.com
+- Kanal: @Mugi2Sehat
